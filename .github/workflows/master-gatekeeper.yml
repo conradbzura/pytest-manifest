@@ -1,0 +1,17 @@
+name: 'Verify head branch'
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  verify_head_branch:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Verify head branch
+        if: github.base_ref == 'master' && (github.head_ref != 'patch-release' || github.head_ref != 'minor-release' || github.head_ref != 'major-release')
+        run: |
+          echo "ERROR: Merge directly into `master` forbidden."
+          exit 1
