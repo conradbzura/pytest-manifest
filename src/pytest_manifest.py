@@ -6,6 +6,7 @@ from typing import Final, Union
 import pytest
 import yaml
 
+TEST = "test"
 
 class UndefinedType:
     """
