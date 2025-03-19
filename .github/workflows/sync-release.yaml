@@ -1,0 +1,26 @@
+name: Sync release
+
+on:
+  push:
+    branches:
+      - release
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    name: Merge release back to dev branch
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Merge release back to dev branch
+        run: |
+          git config --global user.email "github-actions@example.com"
+          git config --global user.name "GitHub Actions"
+          git fetch --unshallow
+          git checkout dev
+          git pull
+          git merge --no-ff release -m "Auto-merged release back to dev"
+          git push

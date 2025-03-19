@@ -1,0 +1,23 @@
+name: Publish release
+
+on:
+  push:
+    branches:
+      - master
+      - release
+
+jobs:
+  publish_release:
+    runs-on: ubuntu-latest
+
+    environment:
+      name: Publisher
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build & publish
+        uses: astral-sh/setup-uv@v5
+        run: |
+          uv build
