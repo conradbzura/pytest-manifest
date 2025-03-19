@@ -1,0 +1,22 @@
+name: Validate pull request
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - edited
+      - synchronize
+    
+jobs:
+  verify_base_branch:
+    runs-on: ubuntu-latest
+
+    name: Verify whether ${{ github.head_ref }} may be merged into ${{ github.base_ref }}
+    
+    steps:
+      - name: Verify base branch compatibility
+        if: github.base_ref == 'master' && (github.head_ref != 'release')
+        run: |
+          echo "ERROR: Merge directly into master forbidden."
+          exit 1
