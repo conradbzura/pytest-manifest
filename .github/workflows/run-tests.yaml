@@ -22,7 +22,7 @@ jobs:
           - '3.11'
           - '3.12'
 
-    name: Python v${{ matrix.python-version }}
+    name: Python ${{ matrix.python-version }}
 
     steps:
       - name: Checkout code
