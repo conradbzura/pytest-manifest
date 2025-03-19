@@ -6,6 +6,8 @@ from typing import Final, Union
 import pytest
 import yaml
 
+stuff = 1
+
 class UndefinedType:
     """
     Represents an undefined value in tests.
