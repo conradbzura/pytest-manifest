@@ -8,7 +8,7 @@ on:
       - edited
     
     branches:
-      - master
+      - "**"
 
 jobs:
   verify_head_branch:
