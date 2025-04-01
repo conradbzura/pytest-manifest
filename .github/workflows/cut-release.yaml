@@ -33,7 +33,7 @@ jobs:
         run: |
           git fetch --unshallow origin main
           git fetch --unshallow origin master
-          if [[ $(git rev-list --count --left-only origin/master..origin/main) > 0 ]]; then
+          if [[ $(git rev-list --count --left-only origin/master..origin/main) -gt 0 ]]; then
             echo "Error: main is not up to date with master" >&2
             exit 1
           fi

@@ -33,15 +33,15 @@ jobs:
             master)
               case ${{ github.head_ref }} in
                 release)
-                  echo "version-segment=minor" >> $GITHUB_ENV
+                  echo "VERSION_SEGMENT=minor" >> $GITHUB_ENV
                   ;;
                 *)
-                  echo "version-segment=patch" >> $GITHUB_ENV
+                  echo "VERSION_SEGMENT=patch" >> $GITHUB_ENV
                   ;;
               esac
               ;;
             release)
-              echo "version-segment=patch" >> $GITHUB_ENV
+              echo "VERSION_SEGMENT=patch" >> $GITHUB_ENV
               ;;
             *)
               echo "Error: Unsupported base branch ${{ github.base_ref }}" >&2
@@ -54,7 +54,7 @@ jobs:
         run: |
           git fetch --unshallow
           version=$(git describe --tags --abbrev=0)
-          new_version=$(scripts/bump-version.sh ${{ env.version-segment }} $version)
+          new_version=$(scripts/bump-version.sh ${{ env.VERSION_SEGMENT }} $version)
           echo "Bumping $version to $new_version"
           git tag $new_version
           git push origin $new_version
