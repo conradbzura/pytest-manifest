@@ -72,7 +72,7 @@ jobs:
       target-branch: release
       version: ${{ needs.cut-release.outputs.rc_version }}
     secrets:
-      pypi-token: ${{ secrets.TEST_PYPI_TOKEN }}
+      pypi-token: ${{ secrets.PYPI_TOKEN }}
     permissions:
       contents: write
       id-token: write
