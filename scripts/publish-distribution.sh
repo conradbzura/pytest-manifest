@@ -8,13 +8,10 @@ case $# in
         # Attempt to retrieve token from default keychain
         if command -v ks &> /dev/null; then
             if ks -k dev ls | grep -q "pypi-token"; then
-                echo "Publishing package with token from keychain..."
                 KEYCHAIN="dev"
                 SECRET="pypi-token"
                 TOKEN=$(ks -k $KEYCHAIN show $SECRET)
                 echo "Publishing with token from keychain..."
-                echo "Token: $TOKEN"
-                exit 0
             fi
         fi
         ;;
@@ -39,10 +36,9 @@ esac
 
 # Publish the package
 if [ -n "$TOKEN" ]; then
-    # uv publish --username "__token__" --password "$TOKEN"
-    echo "Token: $TOKEN"
+    uv publish --username "__token__" --password "$TOKEN"
 else
     echo "Publishing without token..."
-    # uv publish
+    uv publish
     echo "Token: No token provided"
 fi
