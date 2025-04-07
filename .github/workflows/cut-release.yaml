@@ -11,6 +11,25 @@ on:
         default: minor
 
 jobs:
+  verify-code-changes:
+    name: Verify code has changed
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get touched files
+        id: get-touched-files
+        uses: ./.github/actions/touched-files
+        with:
+          pathspec: 'src/ pyproject.toml'
+
+      - name: Fail if code has not changed
+        if: ${{ ! steps.get-touched-files.outputs.touched }}
+        run: |
+          echo "ERROR: No code changes detected."
+          exit 1
+
   cut-release:
     permissions:
       contents: write
