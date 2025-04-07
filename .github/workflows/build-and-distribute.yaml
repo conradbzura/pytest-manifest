@@ -57,7 +57,6 @@ jobs:
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         password: ${{ secrets.pypi-token }}
-        repository-url: https://pypi.org/legacy/
 
   publish-to-github:
     name: Publish distribution to GitHub
