@@ -31,13 +31,12 @@ jobs:
           exit 1
 
   cut-release:
+    name: Cut ${{ github.event.inputs.release-type }} release
+    needs: verify-code-changes
+    runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
-
-    runs-on: ubuntu-latest
-
-    name: Cut ${{ github.event.inputs.release-type }} release
 
     outputs:
       rc_version: ${{ steps.cut-release-branch.outputs.rc_version }}
@@ -92,8 +91,8 @@ jobs:
     with:
       target-branch: release
       version: ${{ needs.cut-release.outputs.rc_version }}
-    secrets:
-      pypi-token: ${{ secrets.PYPI_TOKEN }}
     permissions:
       contents: write
       id-token: write
+    secrets:
+      pypi-token: ${{ secrets.PYPI_TOKEN }}
