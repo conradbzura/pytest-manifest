@@ -11,14 +11,32 @@ on:
         default: minor
 
 jobs:
+  verify-code-changes:
+    name: Verify code has changed
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get touched files
+        id: get-touched-files
+        uses: ./.github/actions/touched-files
+        with:
+          pathspec: 'src/ pyproject.toml'
+
+      - name: Fail if code has not changed
+        if: ${{ ! steps.get-touched-files.outputs.touched }}
+        run: |
+          echo "ERROR: No code changes detected."
+          exit 1
+
   cut-release:
+    name: Cut ${{ github.event.inputs.release-type }} release
+    needs: verify-code-changes
+    runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
-
-    runs-on: ubuntu-latest
-
-    name: Cut ${{ github.event.inputs.release-type }} release
 
     outputs:
       rc_version: ${{ steps.cut-release-branch.outputs.rc_version }}
@@ -73,8 +91,8 @@ jobs:
     with:
       target-branch: release
       version: ${{ needs.cut-release.outputs.rc_version }}
-    secrets:
-      pypi-token: ${{ secrets.PYPI_TOKEN }}
     permissions:
       contents: write
       id-token: write
+    secrets:
+      pypi-token: ${{ secrets.PYPI_TOKEN }}
