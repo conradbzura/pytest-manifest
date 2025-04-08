@@ -1,5 +1,5 @@
 name: Get touched files
-description: 'Get a list of files that have been modified in a pull request.'
+description: Get a list of files that have been modified in a pull request.
 inputs:
   pathspec:
     description: 'Optional pathspec(s) to filter files. E.g., "src/**" will only get files in the src directory.'
