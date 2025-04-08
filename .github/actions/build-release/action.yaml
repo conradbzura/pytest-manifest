@@ -19,6 +19,7 @@ runs:
       uses: astral-sh/setup-uv@v5
 
     - name: Build distribution artifacts
+      shell: bash
       run: uv build
 
     - name: Store distribution artifacts

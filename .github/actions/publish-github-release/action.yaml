@@ -27,6 +27,7 @@ runs:
         inputs: ./dist-${{ inputs.version }}/*.tar.gz ./dist-${{ inputs.version }}/*.whl
 
     - name: Create GitHub release
+      shell: bash
       env:
         GH_TOKEN: ${{ github.token }}
       run: |
@@ -42,6 +43,7 @@ runs:
           $prerelease_flag
  
     - name: Upload artifact signatures to GitHub release
+      shell: bash
       env:
         GH_TOKEN: ${{ github.token }}
       run: gh release upload ${{ inputs.version }} dist-${{ inputs.version }}/** --repo ${{ github.repository }}
