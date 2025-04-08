@@ -1,21 +1,24 @@
 #!/bin/bash
 
-USAGE="Usage: $0 major|minor|patch VERSION"
+USAGE="Usage: $0 major|minor|patch VERSION [short|full=short]"
 
 # Evaluate arguments
 case $# in
-    2)
-        case $1 in
-            major|minor|patch)
-                SEGMENT=$1
+    3)
+        case $3 in
+            short)
+                FULL=false
+                ;;
+            full)
+                FULL=true
                 ;;
             *)
-                echo "ERROR: Invalid version segment: $1" >&2
-                echo $USAGE
-                exit 1
+                FULL=false
                 ;;
         esac
-        VERSION=$2
+        ;;
+    2)
+        FULL=false
         ;;
     *)
         echo $USAGE
@@ -23,7 +26,20 @@ case $# in
         ;;
 esac
 
+# Evaluate version segment
+case $1 in
+    major|minor|patch)
+        SEGMENT=$1
+        ;;
+    *)
+        echo "ERROR: Invalid version segment: $1" >&2
+        echo $USAGE
+        exit 1
+        ;;
+esac
+
 # Determine release cycle
+VERSION=$2
 case $VERSION in
     *a*)
         CYCLE="a"
@@ -85,7 +101,7 @@ case $SEGMENT in
         ;;
 esac
 
-if [ "$CYCLE" == "." ] && [ "$PATCH" -eq 0 ]; then
+if [ "$CYCLE" == "." ] && [ "$PATCH" -eq 0 ] && [ "$FULL" == false ]; then
     echo "v$MAJOR.$MINOR"
 else
     echo "v$MAJOR.$MINOR$CYCLE$PATCH"
