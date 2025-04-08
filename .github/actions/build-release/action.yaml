@@ -1,0 +1,28 @@
+name: Build release
+description: Build the target version.
+inputs:
+  version:
+    required: true
+    type: string
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-tags: true
+        persist-credentials: false
+        ref: ${{ inputs.version }}
+
+    - name: Install uv & prepare python
+      uses: astral-sh/setup-uv@v5
+
+    - name: Build distribution artifacts
+      run: uv build
+
+    - name: Store distribution artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: distributions
+        path: dist-${{ inputs.version }}/

@@ -1,4 +1,5 @@
 name: Cut release
+description: Cut a release branch and publish a release-candidate.
 
 on:
   workflow_dispatch:
@@ -17,14 +18,16 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Get touched files
         id: get-touched-files
-        uses: ./.github/actions/touched-files
+        uses: ./.github/actions/get-touched-files
         with:
           pathspec: 'src/ pyproject.toml'
 
-      - name: Fail if code has not changed
+      - name: Fail if code hasn't changed
         if: ${{ ! steps.get-touched-files.outputs.touched }}
         run: |
           echo "ERROR: No code changes detected."
