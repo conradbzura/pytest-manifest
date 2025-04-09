@@ -63,10 +63,10 @@ jobs:
       - name: Create release branch
         id: cut-release-branch
         run: |
-          version=$(scripts/cut-release.sh ${{ github.event.inputs.release-type }} release)
+          version=$(.github/scripts/cut-release.sh ${{ github.event.inputs.release-type }} release)
           echo "Release candidate: $version"
           echo "version=$version" >> $GITHUB_OUTPUT
-          echo "version=$(scripts/bump-version.sh minor $version)" >> $GITHUB_OUTPUT
+          echo "version=$(.github/scripts/bump-version.sh minor $version)" >> $GITHUB_OUTPUT
         
       - name: Checkout release
         uses: actions/checkout@v4
@@ -127,4 +127,3 @@ jobs:
         with:
           version: ${{ needs.cut-release.outputs.version }}
           pypi-token: ${{ secrets.PYPI_TOKEN }}
-    

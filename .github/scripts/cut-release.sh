@@ -45,7 +45,7 @@ if [[ $VERSION == *rc* ]]; then
     exit 1
 fi
 
-read MAJOR MINOR PATCH <<< $(scripts/split-version.sh $VERSION)
+read MAJOR MINOR PATCH <<< $(.github/scripts/split-version.sh $VERSION)
 
 # Bump the version
 case $RELEASE_TYPE in
