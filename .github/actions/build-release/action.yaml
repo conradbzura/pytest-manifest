@@ -25,5 +25,5 @@ runs:
     - name: Store distribution artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: distributions
+        name: dist-${{ inputs.version }}
         path: dist-${{ inputs.version }}/
