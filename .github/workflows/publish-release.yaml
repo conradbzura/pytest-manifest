@@ -71,9 +71,9 @@ jobs:
         with:
           version: ${{ needs.tag-version.outputs.version }}
       
-  publish-release:
-    name: Publish release
-    needs: 
+  publish-release-to-github:
+    name: Publish release to GitHub
+    needs:
       - tag-version
       - build-release
     runs-on: ubuntu-latest
