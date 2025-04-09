@@ -77,6 +77,9 @@ jobs:
       - tag-version
       - build-release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/publish-github-release
