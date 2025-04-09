@@ -22,6 +22,7 @@ runs:
       # uses: pypa/gh-action-pypi-publish@release/v1
       # with:
       #   password: ${{ inputs.pypi-token }}
+      shell: bash
       run: |
         echo "Publishing to PyPI with version ${{ inputs.version }}"
         echo "Using token: ${{ inputs.pypi-token }}"

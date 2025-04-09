@@ -1,12 +1,12 @@
 name: Build release
-description: Build the target version.
+description: Build distribution for the target version.
 inputs:
   version:
     required: true
     type: string
 
 runs:
-  using: 'composite'
+  using: composite
   steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -17,6 +17,8 @@ runs:
 
     - name: Install uv & prepare python
       uses: astral-sh/setup-uv@v5
+      with:
+        enable-cache: false
 
     - name: Build distribution artifacts
       shell: bash
