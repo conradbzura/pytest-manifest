@@ -8,9 +8,9 @@ on:
       - release
     types:
       - closed
-    # paths:
-    #   - src/**
-    #   - pyproject.toml
+    paths:
+      - src/**
+      - pyproject.toml
 
 jobs:
   tag-version:

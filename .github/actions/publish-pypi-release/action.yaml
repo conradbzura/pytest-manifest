@@ -19,11 +19,6 @@ runs:
         path: dist-${{ inputs.version }}/
 
     - name: Upload distribution to PyPI
-      # uses: pypa/gh-action-pypi-publish@release/v1
-      # with:
-      #   password: ${{ inputs.pypi-token }}
-      shell: bash
-      run: |
-        echo "Publishing to PyPI with version ${{ inputs.version }}"
-        echo "Using token: ${{ inputs.pypi-token }}"
-        # Add your PyPI publishing logic here
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        password: ${{ inputs.pypi-token }}
