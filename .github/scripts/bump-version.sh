@@ -65,7 +65,7 @@ if [ "$PRE_RELEASE" = true ] && [[ "$SEGMENT" == "major" ]]; then
 fi
 
 #Split version
-read MAJOR MINOR PATCH <<< $(scripts/split-version.sh $VERSION)
+read MAJOR MINOR PATCH <<< $(.github/scripts/split-version.sh $VERSION)
 
 case $SEGMENT in
     major)
